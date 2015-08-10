@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Książka usunięta</title>
+    <link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
+</head>
+<body>
+	<div>
+		<p>Książka o tytule "<span th:text="${title}"></span>" została usunięta</p>
+	</div>
+	<div>
+		<p>Aby powrócić do listy książek, <a href='/workshop/books'>kliknij tutaj</a></p>
+	</div>
+</body>
+</html>

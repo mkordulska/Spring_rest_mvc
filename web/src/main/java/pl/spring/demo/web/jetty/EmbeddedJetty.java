@@ -1,6 +1,8 @@
 package pl.spring.demo.web.jetty;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.session.HashSessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
@@ -22,7 +24,7 @@ public class EmbeddedJetty {
     private static final String CONFIG_LOCATION = "classpath*:spring/*.xml";
     private static final String MAPPING_URL = "/*";
     private static final String DEFAULT_PROFILE = "dev";
-
+    
     public static void main(String[] args) throws Exception {
         new EmbeddedJetty().startJetty(DEFAULT_PORT);
     }
@@ -37,6 +39,9 @@ public class EmbeddedJetty {
 
     private static ServletContextHandler getServletContextHandler(WebApplicationContext context) throws IOException {
         ServletContextHandler contextHandler = new ServletContextHandler();
+        HashSessionManager manager = new HashSessionManager();
+        SessionHandler sessions = new SessionHandler(manager);
+        contextHandler.setHandler(sessions);
         contextHandler.setErrorHandler(null);
         contextHandler.setContextPath(CONTEXT_PATH);
         contextHandler.addServlet(new ServletHolder(new DispatcherServlet(context)), MAPPING_URL);

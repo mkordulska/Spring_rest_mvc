@@ -12,6 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonRepositoryTest-context.xml")
@@ -41,5 +42,17 @@ public class BookRepositoryTest {
         assertNotNull(booksEntity);
         assertFalse(booksEntity.isEmpty());
         assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
+    }
+    
+    @Test
+    public void testShouldDeleteBook() {
+    	// given
+    	final Long id = 1L;
+    	int size = bookRepository.findAll().size();
+    	// when
+    	bookRepository.delete(id);
+    	// then
+    	assertTrue(bookRepository.findOne(id)==null);
+    	assertEquals(bookRepository.findAll().size(), size-1);
     }
 }
