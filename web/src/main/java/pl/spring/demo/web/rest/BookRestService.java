@@ -26,7 +26,7 @@ public class BookRestService {
 		return bookService.saveBook(book);
 	}
 
-	@RequestMapping(value = "/updateBook", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateBook", method = RequestMethod.PUT)
 	public BookTo updateBook(@RequestBody BookTo book) {
 		return bookService.updateBook(book);
 	}
